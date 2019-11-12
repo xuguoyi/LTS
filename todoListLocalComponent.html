@@ -11,14 +11,30 @@
     <input type="text" v-model="inputValue" />
     <button type="button" @click="handleClickBtn">提交</button>
     <ul>
-      <li v-for="item in list" :key="item">{{item}}</li>
+      <todo-item 
+        :content="item" 
+        :index="index"
+        @delete="deleteItem"
+        v-for="(item, index) in list" :key="index"></todo-item>
     </ul>
   </div>
 
   <script src="./vue.js"></script>
   <script>
+    var TodoItem = {
+      props: ['content', 'index'],
+      template: '<li @click="deleteLi">{{content}}</li>',
+      methods: {
+        deleteLi() {
+          this.$emit('delete', this.index);
+        }
+      }
+    }
     var app = new Vue({
       el: '#app',
+      components: {
+        TodoItem
+      },
       data: {
         inputValue: '',
         list: []
@@ -27,6 +43,9 @@
         handleClickBtn() {
           this.list.push(this.inputValue);
           this.inputValue = '';
+        },
+        deleteItem(index) {
+          this.list.splice(index, 1);
         }
       }
     });
