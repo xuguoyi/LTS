@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性，方法，侦听器</title>
+</head>
+<body>
+  <div id="app">
+    {{ fullName }}
+  </div>
+
+  <div id="func">
+    {{ fullName() }}
+  </div>
+
+  <div id="watching">
+    {{ fullName }}
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'san',
+        lastName: 'zhang',
+      },
+      computed: {
+        fullName() {
+          return this.firstName + ' ' + this.lastName;
+        }
+      }
+    });
+
+    var func = new Vue({
+      el: '#func',
+      data: {
+        firstName: 'san',
+        lastName: 'zhang',
+      },
+      methods: {
+        fullName() {
+          return this.firstName + ' ' + this.lastName;
+        }
+      }
+    });
+
+    var watching = new Vue({
+      el: '#watching',
+      data: {
+        firstName: 'san',
+        lastName: 'zhang',
+        fullName: ''
+      },
+      watch: {
+        firstName() {
+          this.fullName = this.firstName + ' ' + this.lastName;
+        },
+        lastName() {
+          this.fullName = this.firstName + ' ' + this.lastName;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
