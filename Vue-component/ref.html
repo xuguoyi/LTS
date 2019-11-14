@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <counter ref="one" @change="changeTotal"></counter>
+    <counter ref="two" @change="changeTotal"></counter>
+    <div>{{total}}</div>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    Vue.component('counter', {
+      template: '<div @click="add">{{number}}</div>',
+      data() {
+        return {
+          number: 0
+        }
+      },
+      methods: {
+        add() {
+          this.number++;
+          this.$emit('change');
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        total: 0
+      },
+      methods: {
+        changeTotal() {
+          // ref指向dom节点，   this.$refs.名称 即可获取
+          this.total = this.$refs.one.number + this.$refs.two.number;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

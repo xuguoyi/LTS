@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <table>
+      <tbody>
+          <!-- 不能直接用<row></row>，因为<table></table>下面必须是<tr></tr>。
+          同理：ul>li,  ol>li, select>option 同样适用 -->
+          <!-- <row></row> -->
+          <tr is="row"></tr>
+          <tr is="row"></tr>
+          <tr is="row"></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    // 组件中的data必须是个函数，然后return，确保每个子组件有独立的存储，不会出现相互影响的情况
+    Vue.component('row', {
+      template: '<tr><td>{{content}}</td></tr>',
+      data() {
+        return {
+          content: 'This is row'
+        }
+      }
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    });
+  </script>
+</body>
+</html>
