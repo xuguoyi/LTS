@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>列表</title>
+</head>
+<body>
+  <div id="app">
+    <div v-for="(item, index) in arr" :key="item.id">
+      {{item.name}} --- {{index}} --- {{item.id}}
+    </div>
+    <button type="button" @click="changeArr">变</button>
+
+    <!-- template不会被渲染 -->
+    <template v-for="(item, index) in arr">  
+      <div>{{item.name}}</div>
+      <div>{{item.id}}</div>
+    </template>
+
+    <div v-for="(item, key, index) of obj">
+      {{key}} --- {{item}} --- {{index}}
+    </div>
+    <button type="button" @click="changeObj">变</button>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        // 1.操作数组只有7种方法：push pop unshift shift splice sort reverse
+        // 2.或者整体指针替换
+        // 3.set方法
+        arr: [
+          {
+            name: '语文',
+            id: '0'
+          },{
+            name: '数学',
+            id: '1'
+          },{
+            name: '英语',
+            id: '2'
+          },
+        ],
+        obj: {
+          name: 'zhangsan',
+          age: 28,
+          country: 'China'
+        }
+      },
+      methods: {
+        changeArr() {
+          // 两种方式: 全局和实例
+          // Vue.set(app.arr, 2, {'name':'物理', id: '3'})
+          app.$set(app.arr, 2, {'name':'物理', id: '3'})
+        },
+        changeObj() {
+          // 两种方式
+          // Vue.set(app.obj, 'sex', '女')   
+          app.$set(app.obj, 'sex','女')  
+          app.$set(app.obj, 'age','30')
+        }
+      }
+    });
+  </script>
+</body>
+</html>
