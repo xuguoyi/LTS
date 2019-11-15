@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>参数校验和非props特性</title>
+</head>
+<body>
+  <div id="app">
+    <counter :content="'123erere'" color="red"></counter>
+    <!-- color未被定义，叫非props特性，会在子组件中的最外层元素显示 -->
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var counter = {
+      props: {
+        content: {
+          type: [String, Number],
+          required: false,
+          default: '5211',
+          validator(val) {
+            return val.length>5
+          }
+        }
+      },
+      template: '<div>{{content}}</div>',
+      data() {
+        return {
+
+        }
+      }
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        counter
+      }
+    });
+  </script>
+</body>
+</html>

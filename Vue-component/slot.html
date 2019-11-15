@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <child>
+      <div slot="header">header</div>
+      <div slot="footer">footer</div>
+      <!-- <div slot="default">存在的时候覆盖默认值</div> -->
+    </child>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var child = {
+      template: `<div>
+                    <slot name="header"></slot>
+                    <div>content</div>
+                    <slot name="footer"></slot>
+                    <slot name="default">默认值</slot>
+                </div>`
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        child
+      }
+    })
+  
+  </script>
+</body>
+</html>

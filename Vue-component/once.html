@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件与v-once指令</title>
+</head>
+<body>
+  <div id="app"> 
+    <child1 v-if="type === 'child1'"></child1>
+    <child2 v-if="type === 'child2'"></child2>
+    <!-- 等价于 -->
+    <!-- 动态组件 -->
+    <!-- <component :is="type"></component> -->   
+    <button @click="toggle">切换</button>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    // 使用v-once，加载一次后就存储，不消耗内存，
+    var child1 = {
+      template: `<div v-once>child1</div>`          
+    }
+    var child2 = {
+      template: `<div v-once>child2</div>`
+    }
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        type: 'child1'
+      },
+      components: {
+        child1,
+        child2
+      },
+      methods: {
+        toggle() {
+          this.type = this.type === 'child1' ? 'child2' : 'child1'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

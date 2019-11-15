@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <counter @click.native="handleClick"></counter>
+    <!-- 引入native，避免和子组件中的事件冲突 -->
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var counter = {
+      template: '<div>我可以点击</div>',
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        counter
+      },
+      methods: {
+        handleClick() {
+          alert('你好！');
+        }
+      }
+    })
+  </script>
+</body>
+</html>
