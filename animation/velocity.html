@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 6个钩子函数 -->
+    <transition name="hello"
+      @before-enter="handleBeforeEnter"
+      @enter="hanleEnter"
+      @after-enter="hanleAfterEnter"
+      @before-leave="handleBeforeEnter"
+      @leave="hanleEnter"
+      @after-leave="hanleAfterEnter"
+    >
+      <div v-if="show">Hello World</div>
+    </transition>
+
+    <!-- 引用velocity.js -->
+    <transition name="hello"
+      @before-enter="handleBeforeEnter1"
+      @enter="hanleEnter1"
+      @after-enter="hanleAfterEnter1"
+      @before-leave="handleBeforeEnter1"
+      @leave="hanleEnter1"
+      @after-leave="hanleAfterEnter1"
+    >
+      <div v-if="show">Hello World</div>
+    </transition>
+    <button @click="toggle">切换</button>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script src="./velocity.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      methods: {
+        toggle() {
+          this.show = !this.show;
+        },
+        handleBeforeEnter(el) {
+          el.style.color = '#f00';
+        },
+        hanleEnter(el, done) {
+          setTimeout(() => {
+            el.style.color = '#0f0';
+          }, 2000);
+          setTimeout(() => {
+            done();
+          }, 4000);
+        },
+        hanleAfterEnter(el) {
+          el.style.color = "#000";
+        },
+        handleBeforeEnter1(el) {
+          el.style.opacity = 0;
+        },
+        hanleEnter1(el, done) {
+          Velocity(el, {
+            opacity: 1
+          }, {
+            duration: 2000,
+            complete: done
+          })
+        },
+        hanleAfterEnter1(el) {
+          console.log('动画结束了')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

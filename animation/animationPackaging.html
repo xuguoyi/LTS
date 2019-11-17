@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动画封装</title>
+</head>
+<body>
+  <div id="app">
+    <child :show="show">
+      <div>hello</div>
+    </child>
+    <child :show="show">
+      <h1>bye</h1>
+    </child>
+    <button @click="toggle">Toggle</button>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var child = {
+      props: ['show'],
+      template: `
+        <transition @before-enter="handleBeforeEnter"
+          @enter="handleEnter"
+        >
+          <slot v-if="show"></slot>  
+        </transition>
+      `,
+      methods: {
+        handleBeforeEnter(el) {
+          el.style.color = '#f00';
+        },
+        handleEnter(el, done) {
+          setTimeout(() => {
+            el.style.color = '#0f0';
+            done();
+          }, 1000)
+        }
+      }
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      components: {
+        child
+      },
+      methods: {
+        toggle() {
+          this.show = !this.show;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

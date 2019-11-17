@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./animate.css">
+  <title>Document</title>
+  <style>
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(2);
+      }
+    }
+    .hello-enter-active {
+      transform-origin:  left center;
+      animation: bounce-in 2s;
+    }
+    .hello-leave-active {
+      transform-origin:  left center;
+      animation: bounce-in 2s reverse;
+    }
+
+    .active {
+      transform-origin:  left center;
+      animation: bounce-in 2s;
+    }
+    .leave {
+      transform-origin:  left center;
+      animation: bounce-in 2s reverse;
+    }
+
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 1s;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <transition name="hello">
+      <div v-if="show">Hello World</div>
+    </transition>
+
+    <!-- 自定义名称 -->
+    <transition
+      enter-active-class="active"
+      leave-active-class="leave">
+        <div v-if="show">Hello World</div>
+    </transition>
+
+    <!-- animate.css的用法 -->
+    <transition
+      name="fade"
+      :duration="{enter: 5000, leave: 10000}"
+      appear
+      appear-active-class="animated swing"
+      enter-active-class="animated swing fade-enter-active"
+      leave-active-class="animated shake fade-leave-active">
+        <div v-if="show">Hello World</div>
+    </transition>
+
+    <button @click="toggle">切换</button>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      methods: {
+        toggle() {
+          this.show = !this.show;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

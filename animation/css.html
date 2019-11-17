@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .hello-enter,
+    .hello-leave-to {
+      opacity: 0;
+    }
+    .hello-enter-active,
+    .hello-leave-active {
+      transition: opacity 2s;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <transition name="hello">
+      <div v-if="show">Hello World</div>
+    </transition>
+    <button @click="toggle">切换</button>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      methods: {
+        toggle() {
+          this.show = !this.show;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
